@@ -1,0 +1,15 @@
+<div *ngIf="userInfo">
+    <p>username: {{userInfo.username}}</p>
+    <p>email: {{userInfo.email}}</p>
+    </div>
+
+    <form [formGroup]="userInfoForm" novalidate autocomplete="off" (ngSubmit)="callSetName()">
+    <label>first name </label><input type="text" formControlName="firstName">
+    <label>last name </label><input type="text" formControlName="lastName">
+
+    <button type="submit">Save</button>
+    </form>
+
+    <p *ngIf="loading">Loading profile....</p>
+    <p *ngIf="saving">Saving profile....</p>
+    <p *ngIf="showError">Error! {{errorMessage}}</p>

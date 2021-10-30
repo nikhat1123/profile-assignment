@@ -9,6 +9,12 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "locales": {
+          "fr": "src/translate/messages.fr.xlf",
+          "en-ie": "src/translate/messages.en-ie.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -56,6 +62,12 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "fr": {
+              "localize": ["fr"]
+            },
+            "en-ie": {
+              "localize": ["en-ie"]
             }
           }
         },
@@ -67,6 +79,12 @@
           "configurations": {
             "production": {
               "browserTarget": "profile-assignment:build:production"
+            },
+            "fr": {
+              "browserTarget": "profile-assignment:build:fr"
+            },
+            "en-ie": {
+              "browserTarget": "profile-assignment:build:en-ie"
             }
           }
         },
@@ -119,6 +137,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "profile-assignment"
+    }
+  },
+  "defaultProject": "profile-assignment",
+  "cli": {
+    "analytics": "1428d443-f949-4e31-9cf4-417837da5a2b"
+  }
 }
