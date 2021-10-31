@@ -45,22 +45,22 @@ export class ProfileSettingsComponent implements OnInit {
 
   createForm(): void {
     this.userInfoForm = new FormGroup({
-      firstName: new FormControl({ value: '', disabled: !this.userInfo }, Validators.required),
-      lastName: new FormControl({ value: '', disabled: !this.userInfo }, Validators.required),
+      firstName: new FormControl({ value: '', disabled: true }, Validators.required),
+      lastName: new FormControl({ value: '', disabled: true }, Validators.required),
     });
   }
 
   addFormValues() {
     this.userInfoForm.get('firstName').setValue(this.userInfo.firstName);
-    this.userInfoForm.get('firstName').enable();
     this.userInfoForm.get('lastName').setValue(this.userInfo.lastName);
-    this.userInfoForm.get('lastName').enable();
+    this.enableFormFields();
     console.log(this.userInfoForm);
   }
 
   callSetName() {
     this.saving = true;
     this.showError = false;
+    this.disableFormFields();
     this.profileService.setName(this.userInfoForm.get('firstName').value, this.userInfoForm.get('lastName').value).then(
       (value) => {
         this.profileService.setUserEmail().then(
@@ -75,12 +75,25 @@ export class ProfileSettingsComponent implements OnInit {
         this.setErrorMessage(err);
       }
     ).finally(
-      () => this.saving = false
+      () => {
+        this.saving = false;
+        this.enableFormFields();
+      }
     );
   }
 
   setErrorMessage(err: Error) {
     this.showError = true;
     this.errorMessage = err.error;
+  }
+
+  enableFormFields() {
+    this.userInfoForm.get('firstName').enable();
+    this.userInfoForm.get('lastName').enable();
+  }
+
+  disableFormFields() {
+    this.userInfoForm.get('firstName').disable();
+    this.userInfoForm.get('lastName').disable();
   }
 }
