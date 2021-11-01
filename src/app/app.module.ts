@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
+import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
+import { ProfileService } from './services/profile.service';
+import { SwitchComponentComponent } from './components/switch-component/switch-component.component';
+
 import { AppComponent } from './app.component';
-import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
-import { ProfileService } from './profile.service';
-import { SwitchComponentComponent } from './switch-component/switch-component.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,6 @@ import { SwitchComponentComponent } from './switch-component/switch-component.co
     SwitchComponentComponent
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     CommonModule,
     FormsModule,

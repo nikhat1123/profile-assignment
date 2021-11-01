@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { rejects } from 'assert';
 
 export interface IProfile {
   firstName: string;
@@ -39,7 +38,6 @@ export class ProfileService {
 
 
   setName(firstName: string, lastName: string): Promise<IProfile> {
-    console.log('came here');
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (Math.round(Math.random())) {
@@ -57,12 +55,16 @@ export class ProfileService {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (Math.round(Math.random())) {
-          this.user.email = this.user.firstName.trim() + '.' + this.user.lastName.trim() + '@blueface.com';
+          this.user.email = this.user.firstName.replace(/ +/g, "") + this.addDot() + this.user.lastName.replace(/ +/g, "") + '@blueface.com';
           resolve(this.user);
         } else {
           reject({ error: 'Error on email generation!' });
         }
-      }, Math.random() * 5000);
+      }, Math.random() * 3000);
     });
   }
+
+  private addDot(): string {
+      return this.user.firstName === "" || this.user.lastName === "" ? "" : ".";
+  };
 }

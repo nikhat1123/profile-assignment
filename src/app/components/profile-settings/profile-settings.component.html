@@ -4,10 +4,10 @@
 </div>
 
 <form [formGroup]="userInfoForm" novalidate autocomplete="off" (ngSubmit)="callSetName()">
-    <label>first name </label><input type="text" formControlName="firstName" [disabled]="loading">
+    <label>first name </label><input type="text" formControlName="firstName">
     <label>last name </label><input type="text" formControlName="lastName">
 
-    <button type="submit">Save</button>
+    <div><button type="submit" [disabled]="loading || saving">Save</button></div>
 </form>
 
 <p *ngIf="loading">Loading profile....</p>

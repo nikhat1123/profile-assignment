@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IProfile, ProfileService } from '../profile.service';
+import { IProfile, ProfileService } from '../../services/profile.service';
 
 export interface Error {
   error: string;
@@ -8,18 +8,16 @@ export interface Error {
 
 @Component({
   selector: 'app-profile-settings',
-  templateUrl: './profile-settings.component.html',
-  styleUrls: ['./profile-settings.component.css']
+  templateUrl: './profile-settings.component.html'
 })
 export class ProfileSettingsComponent implements OnInit {
 
-  userInfo: IProfile;
-  userInfoForm: FormGroup;
-  email: string;
+  errorMessage: string;
   loading: boolean;
   saving: boolean;
   showError: boolean;
-  errorMessage: string;
+  userInfo: IProfile;
+  userInfoForm: FormGroup;
 
   constructor(private profileService: ProfileService) { }
 
@@ -29,7 +27,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.fetchData();
   }
 
-  fetchData(): void {
+  private fetchData(): void {
     this.profileService.getProfileUser().then(
       (data) => {
         this.userInfo = data;
@@ -37,24 +35,37 @@ export class ProfileSettingsComponent implements OnInit {
         this.loading = false;
       },
       (err) => {
-        console.log('error');
         this.fetchData();
       }
     );
   }
 
-  createForm(): void {
+  private createForm(): void {
     this.userInfoForm = new FormGroup({
       firstName: new FormControl({ value: '', disabled: true }, Validators.required),
       lastName: new FormControl({ value: '', disabled: true }, Validators.required),
     });
   }
 
-  addFormValues() {
+  private addFormValues() {
     this.userInfoForm.get('firstName').setValue(this.userInfo.firstName);
     this.userInfoForm.get('lastName').setValue(this.userInfo.lastName);
     this.enableFormFields();
-    console.log(this.userInfoForm);
+  }
+
+  private setErrorMessage(err: Error) {
+    this.showError = true;
+    this.errorMessage = err.error;
+  }
+
+  private enableFormFields() {
+    this.userInfoForm.get('firstName').enable();
+    this.userInfoForm.get('lastName').enable();
+  }
+
+  private disableFormFields() {
+    this.userInfoForm.get('firstName').disable();
+    this.userInfoForm.get('lastName').disable();
   }
 
   callSetName() {
@@ -80,20 +91,5 @@ export class ProfileSettingsComponent implements OnInit {
         this.enableFormFields();
       }
     );
-  }
-
-  setErrorMessage(err: Error) {
-    this.showError = true;
-    this.errorMessage = err.error;
-  }
-
-  enableFormFields() {
-    this.userInfoForm.get('firstName').enable();
-    this.userInfoForm.get('lastName').enable();
-  }
-
-  disableFormFields() {
-    this.userInfoForm.get('firstName').disable();
-    this.userInfoForm.get('lastName').disable();
   }
 }

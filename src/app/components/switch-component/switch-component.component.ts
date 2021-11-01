@@ -2,8 +2,7 @@ import { Component, OnInit, isDevMode } from '@angular/core';
 
 @Component({
   selector: 'app-switch-component',
-  templateUrl: './switch-component.component.html',
-  styleUrls: ['./switch-component.component.css']
+  templateUrl: './switch-component.component.html'
 })
 export class SwitchComponentComponent implements OnInit {
 
@@ -15,7 +14,7 @@ export class SwitchComponentComponent implements OnInit {
   languageList = [
     { code: 'en-US', label: 'English' },
     { code: 'fr', label: 'French' },
-    { code: 'en-ir', label: 'Irish' },
+    { code: 'en-ie', label: 'Irish' },
   ]
 
   ngOnInit() {
